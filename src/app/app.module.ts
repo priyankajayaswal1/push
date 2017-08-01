@@ -6,25 +6,49 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '9053a42d',
+  },
+  'push': {
+    'sender_id': '92309043601',
+    'pluginConfig': {
+      'ios': {
+        'badge': true,
+        'sound': true
+      },
+      'android': {
+        'iconColor': '#343434'
+      }
+    }
+  }
+};
+
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     MyApp,
-    HomePage
-  ],
+    HomePage ],
   imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp)
+    BrowserModule,    
+    IonicModule.forRoot(MyApp,{
+      backButtonIcon: "globe",
+      iconMode:"ios",
+      tabsPlacement :"top"
+    }),
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
+  entryComponents: [ 
     MyApp,
     HomePage
-  ],
-  providers: [
+   ],
+  providers: [ 
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+   ]
 })
 export class AppModule {}
